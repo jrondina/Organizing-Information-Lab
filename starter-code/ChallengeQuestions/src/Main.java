@@ -2,7 +2,41 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        //Add code here to test your solutions
+
+        int[] test = new int[2];
+        test[0] = 1;
+        test[1] = 5;
+
+        List<Integer> testList = new ArrayList<>();
+        testList.add(1);
+        testList.add(2);
+        testList.add(3);
+
+        List<Integer> dupList = new ArrayList<>();
+        dupList.add(1);
+        dupList.add(2);
+        dupList.add(2);
+        dupList.add(2);
+        dupList.add(3);
+        dupList.add(3);
+        dupList.add(4);
+        dupList.add(5);
+
+        for (int i = 0; i < findLargestAndSmallest(test).length; i++) {
+            System.out.print(findLargestAndSmallest(test)[i]);
+            System.out.print(", ");
+        }
+        System.out.println("");
+
+
+        System.out.println(sumOfTwoLargest(testList));
+        System.out.println(removeDuplicatesFromList(dupList));
+
+        int[] array1 = {1,4,7,9,0,0,0};
+        int[] array2 = {1,5,11};
+        int[] bonus = {1, 1, 4, 5, 7, 9, 11};
+        System.out.println(Arrays.equals(bonus, (mergeSortedArrays(array1, array2))));
+
     }
 
     /**
@@ -16,8 +50,21 @@ public class Main {
      * @return An array of integers with two elements, the largest and smallest from the method parameter
      */
     public static int[] findLargestAndSmallest(int array[]){
+        int[] answer = new int[2];
 
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > answer[i]) {
+                answer[i] = array[i];
+            }
+            if (array[i] < answer[i]) {
+                answer[i] = array[i];
+            }
+
+        }
+
+        return answer;
     }
+
 
 
     /**
@@ -32,6 +79,23 @@ public class Main {
      * @return Sum of the two largest values
      */
     public static int sumOfTwoLargest(List intList){
+        int largest = 0;
+        int secondLargest = 0;
+        if (intList.size() == 0) {
+            return 0;
+        }
+
+        for (int i = 0; i < intList.size(); i++) {
+            if ((int)intList.get(i) > largest) {
+                secondLargest = largest;
+                largest = (int)intList.get(i);
+            }
+            else if ((int)intList.get(i) > secondLargest) {
+                secondLargest = (int)intList.get(i);
+            }
+
+        }
+            return (largest + secondLargest);
        
     }
 
@@ -50,7 +114,19 @@ public class Main {
      * @param intList A List of Integers that may or may not include duplicates
      * @return A List of Integers that doesn't contain duplicates.
      */
+
     public static List removeDuplicatesFromList(List intList){
+
+        for (int i = 0; i < intList.size() ; i++) {
+            for (int j = 0; j < intList.size(); j++) {
+                if (intList.get(i) == intList.get(j) && (i != j)) {
+                    intList.remove(j);
+                }
+
+            }
+
+        }
+        return intList;
 
     }
 
@@ -77,7 +153,29 @@ public class Main {
      * @param array2 Array of sorted integers
      * @return Array of sorted integers, merged from array1 and array2
      */
+
     public static int[] mergeSortedArrays(int[] array1, int[] array2){
-        return null;
+        List<Integer> combination = new ArrayList<>();
+        for (int i = 0; i < array1.length; i++) {
+            if (array1[i] != 0) {
+                combination.add(array1[i]);
+            }
+
+        }
+        for (int i = 0; i < array2.length; i++) {
+            if (array1[i] != 0) {
+                combination.add(array2[i]);
+            }
+        }
+        Collections.sort(combination);
+
+        int[] answer = new int[combination.size()];
+        for (int i = 0; i < combination.size() ; i++) {
+            answer[i] = combination.get(i);
+        }
+
+
+        return answer;
     }
+
 }
